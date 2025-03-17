@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Key - Item Locker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .item {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #eaeaea;
+            border-radius: 4px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:disabled {
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Key</h1>
+        <div id="itemList"></div>
+        <input type="text" id="itemInput" placeholder="Add item">
+        <button onclick="addItem()">Add Item</button>
+    </div>
+
+    <script>
+        const itemList = document.getElementById('itemList');
+        const itemInput = document.getElementById('itemInput');
+
+        function addItem() {
+            const itemText = itemInput.value.trim();
+            if (!itemText) return;
+
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'item';
+            itemDiv.innerHTML = `
+                <span>${itemText}</span>
+                <button onclick="toggleLock(this)">Lock</button>
+            `;
+            itemList.appendChild(itemDiv);
+            itemInput.value = '';
+        }
+
+        function toggleLock(button) {
+            const itemDiv = button.parentElement;
+            const isLocked = button.innerText === 'Unlock';
+
+            if (isLocked) {
+                itemDiv.querySelector('span').style.textDecoration = 'line-through';
+                button.innerText = 'Lock';
+            } else {
+                itemDiv.querySelector('span').style.textDecoration = 'none';
+                button.innerText = 'Unlock';
+            }
+        }
+    </script>
+
+</body>
+</html>
